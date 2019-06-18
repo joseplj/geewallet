@@ -16,3 +16,7 @@ mono --version
 msbuild -version
 
 find /usr | grep NuGet | grep Packaging
+monodis --assembly /usr/lib/mono/msbuild/15.0/bin/NuGet.Packaging.Core.dll | grep Version
+monodis --assembly /usr/lib/mono/msbuild/15.0/bin/Sdks/Microsoft.NET.Sdk/tools/net46/NuGet.Packaging.Core.dll | grep Version
+monodis --assembly /usr/lib/mono/msbuild/15.0/bin/Sdks/Microsoft.NET.Sdk/tools/net46/NuGet.Packaging.dll | grep Version
+monodis --assembly /usr/lib/mono/msbuild/15.0/bin/NuGet.Packaging.dll | grep Version
