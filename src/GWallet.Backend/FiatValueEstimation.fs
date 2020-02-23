@@ -5,6 +5,8 @@ open System.Net
 
 open FSharp.Data
 
+open GWallet.Backend.FSharpUtil.UwpHacks
+
 module FiatValueEstimation =
     let private PERIOD_TO_CONSIDER_PRICE_STILL_FRESH = TimeSpan.FromMinutes 2.0
 
@@ -42,9 +44,9 @@ module FiatValueEstimation =
             let baseUrl =
                 match provider with
                 | PriceProvider.CoinCap ->
-                    sprintf "https://api.coincap.io/v2/rates/%s" tickerName
+                    SPrintF1 "https://api.coincap.io/v2/rates/%s" tickerName
                 | PriceProvider.CoinGecko ->
-                    sprintf "https://api.coingecko.com/api/v3/simple/price?ids=%s&vs_currencies=usd" tickerName
+                    SPrintF1 "https://api.coingecko.com/api/v3/simple/price?ids=%s&vs_currencies=usd" tickerName
             let uri = Uri baseUrl
             let task = webClient.DownloadStringTaskAsync uri
             let! res = Async.AwaitTask task
