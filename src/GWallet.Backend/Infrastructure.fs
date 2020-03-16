@@ -14,13 +14,21 @@ module Infrastructure =
     let private ReportInner (sentryEvent: SentryEvent) =
         ravenClient.Capture sentryEvent |> ignore
 
+    let internal Flush () =
+        Console.Out.Flush ()
+        Console.Error.Flush ()
+        Debug.Flush ()
+
     let LogInfo (log: string) =
         Console.WriteLine log
         Debug.WriteLine log
+        Flush ()
 
     let LogError (log: string) =
         Console.Error.WriteLine log
         Debug.WriteLine log
+        Console.Error.Flush ()
+        Flush ()
 
     let LogDebug (log: string) =
         if Config.DebugLog then
@@ -53,6 +61,8 @@ module Infrastructure =
 
         // TODO: log this in a file (log4net?), as well as printing to the console, before sending to sentry
         Console.Error.WriteLine ex
+        Debug.WriteLine ex
+        Flush ()
 
 #if DEBUG
         raise ex
