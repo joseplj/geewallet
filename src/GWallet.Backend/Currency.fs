@@ -63,6 +63,8 @@ type Currency =
 #if REFLECTION
         sprintf "%A" self
 #else
+        // when we can depend on newer versions of F#, we might be able to get rid of this (or ToString() altogther) below
+        // (see FSharpUtil's test names "converts fsharp's print syntax to String-Format (advanced II)" for more info):
         match self with
         | BTC -> "BTC"
         | LTC -> "LTC"
